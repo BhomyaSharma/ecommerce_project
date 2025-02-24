@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const countryRoutes = require('./routes/countryRoutes');
 
 // Import route handlers
 const authRoutes = require('./routes/auth');
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+app.use('/api/country', countryRoutes);
 
 // Start the server
 app.listen(PORT, () => {
