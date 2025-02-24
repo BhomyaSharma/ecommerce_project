@@ -8,7 +8,7 @@ const countryRoutes = require('./routes/countryRoutes');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/Userroutes');
 const productRoutes = require('./routes/productroutes');
-
+const regionRoutes = require('./routes/regionRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -26,7 +26,7 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/api/country', countryRoutes);
-
+app.use('/api', regionRoutes);
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
