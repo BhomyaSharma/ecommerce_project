@@ -9,25 +9,31 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/Userroutes');
 const productRoutes = require('./routes/productroutes');
 const regionRoutes = require('./routes/regionRoutes');
+const countryRegionRoutes = require('./routes/countryRegionRoutes');
+const stateRoutes = require('./routes/stateRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// Default route
+
 app.get('/', (req, res) => {
     res.send('E-commerce API is running');
 });
 
-// Route handlers
+
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
 app.use('/api/country', countryRoutes);
 app.use('/api', regionRoutes);
-// Start the server
+app.use('/api/country-region', countryRegionRoutes);
+app.use('/api/states', stateRoutes);
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
