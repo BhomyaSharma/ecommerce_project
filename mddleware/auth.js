@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = "Bhomya@1234"; // Hardcoded secret key
+const SECRET_KEY = "Chahat18@"; // Hardcoded secret key
 
 const authenticateToken = (req, res, next) => {
     const token = req.header('Authorization');
