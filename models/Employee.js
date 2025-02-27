@@ -1,3 +1,4 @@
+
 const db = require('../config/db'); // Database connection
 
 const Employee = {
@@ -31,3 +32,4 @@ const Employee = {
 };
 
 module.exports = Employee;
+

@@ -4,7 +4,8 @@ const authenticateToken = require('../middleware/auth'); // Middleware for authe
 
 // Protected route - User Dashboard
 router.get('/dashboard', authenticateToken, (req, res) => {
-    res.json({ message: `Welcome user ${req.user.id} to your dashboard` });
+
+    res.json({message: `Welcome user ${req.user.id} to your dashboard` });
 });
 
 // Get user profile (Example)

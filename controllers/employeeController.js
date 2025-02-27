@@ -43,7 +43,9 @@ exports.updateEmployee = (req, res) => {
     const { id } = req.params;
     const { first_name, last_name, department_id, designation_id } = req.body;
 
+
     if (!first_name || !last_name || !department_id || !designation_id) {
+
         return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -71,4 +73,5 @@ exports.deleteEmployee = async (req, res) => {
         console.error("Error deleting employee:", err.message);
         res.status(500).json({ error: err.message });
     }
+
 };
