@@ -1,3 +1,4 @@
+// routes/productRoutes.js
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db'); // Ensure this is MySQL2 promise-based

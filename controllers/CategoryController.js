@@ -75,4 +75,5 @@ exports.deleteCategory = async (req, res) => {
     console.error('Error deleting category:', error);
     res.status(500).json({ error: 'Database error', details: error.message });
   }
+
 };

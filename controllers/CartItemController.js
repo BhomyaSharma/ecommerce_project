@@ -3,6 +3,8 @@ const CartItem = require('../models/CartItem');
 exports.addItem = async (req, res) => {
   try {
     const { cart_id, product_id, variant_id, quantity } = req.body;
+
+   
     if (!cart_id || !product_id ||  quantity === undefined) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -69,4 +71,6 @@ exports.clearCart = async (req, res) => {
     console.error('Error clearing cart:', error.message);
     res.status(500).json({ error: 'Database error', details: error.message });
   }
+
 };
+
