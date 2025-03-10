@@ -1,45 +1,20 @@
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const Role = {
-    getAllRoles: async () => {
-        try {
-            const [results] = await db.query('SELECT * FROM roles');
-            return results;
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    createRole: async (roleName) => {
-        try {
-            const [result] = await db.query('INSERT INTO roles (role_name) VALUES (?)', [roleName]);
-            return { role_id: result.insertId };  // ✅ Return newly inserted role ID
-        } catch (error) {
-            throw error;
-        }
-    },
-    updateRole: async (roleId, roleName) => {
-        try {
-            const [result] = await db.query(
-                'UPDATE roles SET role_name = ? WHERE role_id = ?',
-                [roleName, roleId]
-            );
-            return result.affectedRows;  // ✅ Return number of updated rows
-        } catch (error) {
-            throw error;
-        }
-    },
-    deleteRole: async (roleId) => {
-        try {
-            const [result] = await db.query(
-                'DELETE FROM roles WHERE role_id = ?',
-                [roleId]
-            );
-            return result.affectedRows;  // ✅ Return number of deleted rows
-        } catch (error) {
-            throw error;
-        }
-    }
-};
+const Role = sequelize.define('Role', {
+  role_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  role_name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true  // Optional: ensures role names are unique
+  }
+}, {
+  tableName: 'roles',  // Ensure this matches your actual table name
+  timestamps: false    // Disable automatic createdAt/updatedAt if not needed
+});
 
 module.exports = Role;

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const regionController = require('../controllers/regionController');
+const regionController = require('../controllers/regionController'); // ✅ Correct import
 
-router.post('/regions', regionController.create);
-router.get('/regions', regionController.findAll);
-router.get('/regions/:id', regionController.findOne);
-router.put('/regions/:id', regionController.update);
-router.delete('/regions/:id', regionController.delete);
+// Define Routes
+router.post('/', regionController.create);
+router.get('/', regionController.findAll);
+router.get('/:id', regionController.findOne);
+router.put('/:id', regionController.update);
+router.delete('/:id', regionController.delete);
 
 module.exports = router;

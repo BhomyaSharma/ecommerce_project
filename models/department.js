@@ -1,30 +1,20 @@
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const Department = {
-  // Get all departments
-  getAll: (callback) => {
-    db.query('SELECT * FROM department', callback);
+const Department = sequelize.define('Department', {
+  department_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get a department by ID
-  getById: (id, callback) => {
-    db.query('SELECT * FROM department WHERE department_id = ?', [id], callback);
-  },
-
-  // Create a new department
-  create: (data, callback) => {
-    db.query('INSERT INTO department (department_name) VALUES (?)', [data.department_name], callback);
-  },
-
-  // Update an existing department
-  update: (id, data, callback) => {
-    db.query('UPDATE department SET department_name = ? WHERE department_id = ?', [data.department_name, id], callback);
-  },
-
-  // Delete a department
-  delete: (id, callback) => {
-    db.query('DELETE FROM department WHERE department_id = ?', [id], callback);
+  department_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true  // Optional: enforce unique department names
   }
-};
+}, {
+  tableName: 'Department', // Ensure this matches your actual table name
+  timestamps: false       // Disable auto-created timestamp fields if not needed
+});
 
 module.exports = Department;

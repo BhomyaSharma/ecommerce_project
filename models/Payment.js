@@ -1,52 +1,36 @@
-const db = require('../config/db'); // db is a promise-based pool
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const Payment = {
-  // Create a new payment record
-  createPayment: async (order_id, payment_method, transaction_id) => {
-    try {
-      const query = `
-        INSERT INTO payments (order_id, payment_method, transaction_id) 
-        VALUES (?, ?, ?)
-      `;
-      const [result] = await db.query(query, [order_id, payment_method, transaction_id]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+const Payment = sequelize.define('Payment', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get payment details by order ID
-  getPaymentByOrderId: async (order_id) => {
-    try {
-      const query = `SELECT * FROM payments WHERE order_id = ?`;
-      const [rows] = await db.query(query, [order_id]);
-      return rows;
-    } catch (error) {
-      throw error;
-    }
+  order_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-
-  // Update payment status
-  updatePaymentStatus: async (id, payment_status) => {
-    try {
-      const query = `UPDATE payments SET payment_status = ? WHERE id = ?`;
-      const [result] = await db.query(query, [payment_status, id]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+  payment_method: {
+    type: DataTypes.ENUM('credit_card', 'paypal', 'bank_transfer', 'cash_on_delivery'),
+    allowNull: false
   },
-
-  // Delete a payment record
-  deletePayment: async (id) => {
-    try {
-      const query = `DELETE FROM payments WHERE id = ?`;
-      const [result] = await db.query(query, [id]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+  payment_status: {
+    type: DataTypes.ENUM('pending', 'completed', 'failed'),
+    allowNull: true,
+    defaultValue: 'pending'
+  },
+  transaction_id: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
-};
+}, {
+  tableName: 'payments',
+  timestamps: false  // We use created_at manually
+});
 
 module.exports = Payment;

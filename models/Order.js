@@ -1,60 +1,32 @@
-const db = require('../config/db'); // Ensure db.js exports a promise-based pool
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const Order = {
-  // Create a new order
-  create: async (user_id, total_price, status) => {
-    try {
-      const query = 'INSERT INTO orders (user_id, total_price, status) VALUES (?, ?, ?)';
-      const [result] = await db.query(query, [user_id, total_price, status]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+const Order = sequelize.define('Order', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get all orders
-  getAll: async () => {
-    try {
-      const query = 'SELECT * FROM orders';
-      const [rows] = await db.query(query);
-      return rows;
-    } catch (error) {
-      throw error;
-    }
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   },
-
-  // Get order by ID
-  getById: async (id) => {
-    try {
-      const query = 'SELECT * FROM orders WHERE id = ?';
-      const [rows] = await db.query(query, [id]);
-      return rows;
-    } catch (error) {
-      throw error;
-    }
+  total_price: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
   },
-
-  // Update order status
-  updateStatus: async (id, status) => {
-    try {
-      const query = 'UPDATE orders SET status = ? WHERE id = ?';
-      const [result] = await db.query(query, [status, id]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+  status: {
+    type: DataTypes.ENUM('pending', 'shipped', 'delivered', 'cancelled'),
+    allowNull: false,
+    defaultValue: 'pending'
   },
-
-  // Delete an order
-  delete: async (id) => {
-    try {
-      const query = 'DELETE FROM orders WHERE id = ?';
-      const [result] = await db.query(query, [id]);
-      return result;
-    } catch (error) {
-      throw error;
-    }
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
-};
+}, {
+  tableName: 'orders',
+  timestamps: false  // Disable Sequelize's automatic timestamps if you already have created_at
+});
 
 module.exports = Order;

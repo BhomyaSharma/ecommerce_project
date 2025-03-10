@@ -1,41 +1,28 @@
-const db = require('../config/db'); // Ensure your db.js exports a promise-based pool
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance from config/db.js
 
-const Category = {
-  // Create a new category
-  create: (name, description) => {
-    return db.execute(
-      'INSERT INTO categories (name, description) VALUES (?, ?)',
-      [name, description]
-    );
+const Category = sequelize.define('Category', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get all categories
-  getAll: () => {
-    return db.execute('SELECT * FROM categories');
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true
   },
-
-  // Get a category by ID
-  getById: (id) => {
-    return db.execute('SELECT * FROM categories WHERE id = ?', [id]);
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true
   },
-
-  // Get a category by name (for duplicate check)
-  getByName: (name) => {
-    return db.execute('SELECT * FROM categories WHERE name = ?', [name]);
-  },
-
-  // Update a category
-  update: (id, name, description) => {
-    return db.execute(
-      'UPDATE categories SET name = ?, description = ? WHERE id = ?',
-      [name, description, id]
-    );
-  },
-
-  // Delete a category
-  delete: (id) => {
-    return db.execute('DELETE FROM categories WHERE id = ?', [id]);
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
-};
+}, {
+  tableName: 'categories',
+  timestamps: false  // Disable Sequelize's automatic createdAt/updatedAt if not needed
+});
 
 module.exports = Category;

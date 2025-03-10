@@ -1,35 +1,31 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const db = require('../config/db'); // Database connection
-
-const Employee = {
-    getAllEmployees: (callback) => {
-        db.query('SELECT * FROM employee', callback);
-    },
-
-    getEmployeeById: (id, callback) => {
-        db.query('SELECT * FROM employee WHERE employee_id = ?', [id], callback);
-    },
-
-    createEmployee: (first_name, last_name, department_id, designation_id, callback) => {
-        db.query(
-            'INSERT INTO employee (first_name, last_name, department_id, designation_id) VALUES (?, ?, ?, ?)',
-            [first_name, last_name, department_id, designation_id],
-            callback
-        );
-    },
-
-    updateEmployee: (id, first_name, last_name, department_id, designation_id, callback) => {
-        db.query(
-            'UPDATE employee SET first_name = ?, last_name = ?, department_id = ?, designation_id = ? WHERE employee_id = ?',
-            [first_name, last_name, department_id, designation_id, id],
-            callback
-        );
-    },
-
-    deleteEmployee: (id, callback) => {
-        db.query('DELETE FROM employee WHERE employee_id = ?', [id], callback);
-    }
-};
+const Employee = sequelize.define('Employee', {
+  employee_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  department_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  designation_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
+}, {
+  tableName: 'employee', // Ensure this matches your actual table name
+  timestamps: false // Set to true if you want Sequelize to manage createdAt/updatedAt
+});
 
 module.exports = Employee;
-

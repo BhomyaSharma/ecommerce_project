@@ -1,57 +1,23 @@
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const CountryState = {
-  // Get all country states
-  getAll: () => {
-    return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM country_state', (err, results) => {
-        if (err) reject(err);
-        else resolve(results);
-      });
-    });
+const CountryState = sequelize.define('CountryState', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get a single country state by ID
-  getById: (id) => {
-    return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM country_state WHERE id = ?', [id], (err, results) => {
-        if (err) reject(err);
-        else resolve(results[0]);
-      });
-    });
+  country_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-
-  // Add a new country state
-  create: (data) => {
-    return new Promise((resolve, reject) => {
-      db.query('INSERT INTO country_state (country_id, state_id) VALUES (?, ?)', 
-        [data.country_id, data.state_id], (err, results) => {
-        if (err) reject(err);
-        else resolve({ id: results.insertId, ...data });
-      });
-    });
-  },
-
-  // Update an existing country state
-  update: (id, data) => {
-    return new Promise((resolve, reject) => {
-      db.query('UPDATE country_state SET country_id = ?, state_id = ? WHERE id = ?', 
-        [data.country_id, data.state_id, id], (err, results) => {
-        if (err) reject(err);
-        else resolve(results);
-      });
-    });
-  },
-
-  // Delete a country state
-  delete: (id) => {
-    return new Promise((resolve, reject) => {
-      db.query('DELETE FROM country_state WHERE id = ?', [id], (err, results) => {
-        if (err) reject(err);
-        else resolve(results);
-      });
-    });
+  state_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
-};
+}, {
+  tableName: 'country_state',
+  timestamps: false
+});
 
 module.exports = CountryState;

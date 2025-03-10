@@ -1,43 +1,35 @@
-const db = require('../config/db'); // db should be a promise-based pool
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // This is your Sequelize instance
 
-const CartItem = {
-  // Create a new cart item
-  createItem: async (cart_id, product_id, variant_id, quantity) => {
-    const query = `
-      INSERT INTO cart_items (cart_id, product_id, variant_id, quantity)
-      VALUES (?, ?, ?, ?)
-    `;
-    const [result] = await db.query(query, [cart_id, product_id, variant_id, quantity]);
-    return result;
+const CartItem = sequelize.define('CartItem', {
+  cart_item_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get all items in a cart by cart_id
-  getItemsByCartId: async (cart_id) => {
-    const query = `SELECT * FROM cart_items WHERE cart_id = ?`;
-    const [rows] = await db.query(query, [cart_id]);
-    return rows;
+  cart_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   },
-
-  // Update quantity of a cart item by cart_item_id
-  updateQuantity: async (cart_item_id, quantity) => {
-    const query = `UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?`;
-    const [result] = await db.query(query, [quantity, cart_item_id]);
-    return result;
+  product_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   },
-
-  // Delete a specific cart item by cart_item_id
-  deleteItem: async (cart_item_id) => {
-    const query = `DELETE FROM cart_items WHERE cart_item_id = ?`;
-    const [result] = await db.query(query, [cart_item_id]);
-    return result;
+  variant_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   },
-
-  // Clear all items from a cart by cart_id
-  clearCart: async (cart_id) => {
-    const query = `DELETE FROM cart_items WHERE cart_id = ?`;
-    const [result] = await db.query(query, [cart_id]);
-    return result;
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  added_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
-};
+}, {
+  tableName: 'cart_items',
+  timestamps: false // Set to true if you want Sequelize to manage createdAt/updatedAt fields
+});
 
 module.exports = CartItem;

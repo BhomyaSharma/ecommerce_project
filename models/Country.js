@@ -1,19 +1,20 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance from config/db.js
 
 const Country = sequelize.define('Country', {
-    countryid: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    CountryName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+  country_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  country_name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true
+  }
 }, {
-    tableName: 'country',  // Explicitly set table name
-    timestamps: false      // Disable `createdAt` and `updatedAt`
+  tableName: 'country',
+  timestamps: false // If you have no createdAt/updatedAt columns
 });
 
 module.exports = Country;

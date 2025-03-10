@@ -8,18 +8,27 @@ const db = require('./config/db'); // Import MySQL connection
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/Userroutes');
-const productRoutes = require('./routes/productroutes');
 const regionRoutes = require('./routes/regionRoutes');
 const countryRegionRoutes = require('./routes/countryRegionRoutes');
 const stateRoutes = require('./routes/stateRoutes');
-const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const departmentRoutes = require('./routes/departmentRoute');
 const countryStateRoutes = require('./routes/countryStateRoute');
 const designationRoutes = require('./routes/designationRoute'); // ✅ Import Designation Routes
 const permissionRoutes = require('./routes/permissionRoutes');
-
-
+const employeeRoutes = require('./routes/employeeRoutes');
+const productDetailsRoutes = require('./routes/productDetailsRoutes');
+const productVariantRoutes = require('./routes/productVariantRoutes');
+const orderItemRoutes = require('./routes/orderItemRoutes');
+const categoryRoutes = require('./routes/categoryroutes');
+const orderRoutes = require('./routes/orderRoutes');
+const cartItemRoutes = require('./routes/cartItemRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const shoppingCartRoutes = require('./routes/shoppingCartRoutes');
+const roleRoutes = require('./routes/roleRoutes');
+const permissionRoleRoutes = require('./routes/permissionRoleRoutes');
+const customerRoutes = require('./routes/customerRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -66,6 +75,7 @@ app.use('/api/employees', employeeRoutes);
 app.use('/api/product_details', productDetailsRoutes);
 app.use('/api/product_variants', productVariantRoutes);
 app.use('/api/order_items', orderItemRoutes);
+app.use('/api/customers', customerRoutes);
 // ✅ Global Error Handler
 app.use((err, req, res, next) => {
     console.error('Server Error:', err.message);
@@ -73,19 +83,17 @@ app.use((err, req, res, next) => {
 });
 
 
-/*
-app.use('/auth', authRoutes);
-app.use('/users', userRoutes);
-app.use('/products', productRoutes);
+
+
 app.use('/api/country', countryRoutes);
-app.use('/api', regionRoutes);
+app.use('/api/regions', regionRoutes);
 app.use('/api/country-region', countryRegionRoutes);
 app.use('/api/states', stateRoutes);
-app.use('/country_states', countryStateRoutes);
-app.use('/departments', departmentRoutes);
-app.use('/designations', designationRoutes); // ✅ Register Designation Routes
-app.use('/permissions', permissionRoutes);
-*/
+app.use('/api/country_states', countryStateRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/designations', designationRoutes); // ✅ Register Designation Routes
+app.use('/api/permissions', permissionRoutes);
+
 
 
 app.listen(PORT, () => {

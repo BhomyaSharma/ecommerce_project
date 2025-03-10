@@ -1,30 +1,20 @@
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance from config/db.js
 
-const Designation = {
-  // Get all designations
-  getAll: (callback) => {
-    db.query('SELECT * FROM designation', callback);
+const Designation = sequelize.define('Designation', {
+  designation_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get a designation by ID
-  getById: (id, callback) => {
-    db.query('SELECT * FROM designation WHERE designation_id = ?', [id], callback);
-  },
-
-  // Create a new designation
-  create: (data, callback) => {
-    db.query('INSERT INTO designation (designation_name) VALUES (?)', [data.designation_name], callback);
-  },
-
-  // Update an existing designation
-  update: (id, data, callback) => {
-    db.query('UPDATE designation SET designation_name = ? WHERE designation_id = ?', [data.designation_name, id], callback);
-  },
-
-  // Delete a designation
-  delete: (id, callback) => {
-    db.query('DELETE FROM designation WHERE designation_id = ?', [id], callback);
+  designation_name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true // Optional: enforce unique designation names
   }
-};
+}, {
+  tableName: 'designation', // Ensure this matches your actual table name in the database
+  timestamps: false       // Disable createdAt/updatedAt if not used
+});
 
 module.exports = Designation;

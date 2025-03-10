@@ -1,23 +1,29 @@
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const User = {
-  create: (name, email, password, callback) => {
-    const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
-    db.query(query, [name, email, password], callback);
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  findByEmail: (email, callback) => {
-    const query = 'SELECT * FROM users WHERE email = ?';
-    db.query(query, [email], callback);
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-
-  // Method to get a user by ID
-  findById: (id, callback) => {
-    const query = 'SELECT * FROM users WHERE id = ?';
-    db.query(query, [id], callback);
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   },
-
-  // More methods like update, delete, etc.
-};
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+  // Optionally, you can add a role or created_at fields here.
+}, {
+  tableName: 'users',   // Must match your database table name
+  timestamps: false     // Disable auto-created timestamps if you're not using them
+});
 
 module.exports = User;

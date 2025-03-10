@@ -1,54 +1,35 @@
-const db = require('../config/db'); // db is a promise-based pool
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
-const Review = {
-  // Create a new review
-  createReview: async (product_id, user_id, rating, review_text) => {
-    const query = `
-      INSERT INTO reviews (product_id, user_id, rating, review_text)
-      VALUES (?, ?, ?, ?)
-    `;
-    const [result] = await db.query(query, [product_id, user_id, rating, review_text]);
-    return result;
+const Review = sequelize.define('Review', {
+  review_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
   },
-
-  // Get all reviews
-  getAllReviews: async () => {
-    const query = `SELECT * FROM reviews`;
-    const [rows] = await db.query(query);
-    return rows;
+  product_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-
-  // Get reviews for a specific product
-  getReviewsByProductId: async (product_id) => {
-    const query = `SELECT * FROM reviews WHERE product_id = ? ORDER BY created_at DESC`;
-    const [rows] = await db.query(query, [product_id]);
-    return rows;
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-
-  // Get a specific review by ID
-  getReviewById: async (review_id) => {
-    const query = `SELECT * FROM reviews WHERE review_id = ?`;
-    const [rows] = await db.query(query, [review_id]);
-    return rows[0]; // return single review
+  rating: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
-
-  // Update a review
-  updateReview: async (review_id, rating, review_text) => {
-    const query = `
-      UPDATE reviews 
-      SET rating = ?, review_text = ?
-      WHERE review_id = ?
-    `;
-    const [result] = await db.query(query, [rating, review_text, review_id]);
-    return result;
+  review_text: {
+    type: DataTypes.TEXT,
+    allowNull: true
   },
-
-  // Delete a review
-  deleteReview: async (review_id) => {
-    const query = `DELETE FROM reviews WHERE review_id = ?`;
-    const [result] = await db.query(query, [review_id]);
-    return result;
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
   }
-};
+}, {
+  tableName: 'reviews',
+  timestamps: false // We manage created_at manually
+});
 
 module.exports = Review;

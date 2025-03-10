@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const countryController = require('../controllers/countryController');
+const countryController = require('../controllers/countryController'); // Ensure correct path
 
+// Define Routes
 router.post('/', countryController.create);
 router.get('/', countryController.findAll);
 router.get('/:id', countryController.findOne);

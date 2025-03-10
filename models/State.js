@@ -1,19 +1,19 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Your Sequelize instance
 
 const State = sequelize.define('State', {
-    stateid: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    statename: {
-        type: DataTypes.STRING(300),
-        allowNull: false
-    }
+  state_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  state_name: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  }
 }, {
-    tableName: 'state',  // Explicit table name
-    timestamps: false    // Disable createdAt & updatedAt
+  tableName: 'state', // Make sure this matches your actual table name
+  timestamps: false   // We disable automatic timestamps if not needed
 });
 
 module.exports = State;
