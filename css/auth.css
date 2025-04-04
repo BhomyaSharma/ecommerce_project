@@ -1,0 +1,134 @@
+/* Glassmorphism Login & Signup */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url("https://img.freepik.com/free-photo/beige-abstract-wallpaper-background-image_53876-102527.jpg?t=st=1743739502~exp=1743743102~hmac=109ffa4232ff7c5d4893da00b55a18f8370ae83044f29ae5bae141066476bf2b&w=1380") no-repeat center center/cover; /* Replace with your image */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.login-bg {
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(15px);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 350px;
+  text-align: center;
+}
+
+.auth-box h2 {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.auth-box h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  color: #000;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.4);
+  color: #222;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: rgba(80, 80, 80, 0.7);
+}
+
+.forgot-password {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.social-login p {
+  color: #333;
+  margin: 1rem 0 0.5rem;
+}
+
+.social-icons img {
+  width: 35px;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.switch-auth {
+  margin-top: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+.switch-auth a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+/* body{
+background: url("https://img.freepik.com/free-photo/beige-abstract-wallpaper-background-image_53876-102527.jpg?t=st=1743739502~exp=1743743102~hmac=109ffa4232ff7c5d4893da00b55a18f8370ae83044f29ae5bae141066476bf2b&w=1380") no-repeat center center/cover;
+} */
