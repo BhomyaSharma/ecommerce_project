@@ -1,19 +1,36 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Your Sequelize instance
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
+const Country = require("./Country"); // Import Country model
 
-const State = sequelize.define('State', {
-  state_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+const State = sequelize.define(
+  "State",
+  {
+    state_id: { 
+      type: DataTypes.INTEGER, 
+      primaryKey: true, 
+      autoIncrement: true 
+    },
+    state_name: { 
+      type: DataTypes.STRING(100), 
+      allowNull: false 
+    },
+    country_id: { 
+      type: DataTypes.INTEGER, 
+      allowNull: false, 
+      references: { 
+        model: "country", // Ensure this matches your actual table name
+        key: "country_id" 
+      }
+    },
   },
-  state_name: {
-    type: DataTypes.STRING(100),
-    allowNull: false
+  { 
+    tableName: "state", 
+    timestamps: false 
   }
-}, {
-  tableName: 'state', // Make sure this matches your actual table name
-  timestamps: false   // We disable automatic timestamps if not needed
-});
+);
+
+// Define Relationship
+State.belongsTo(Country, { foreignKey: "country_id" });
+Country.hasMany(State, { foreignKey: "country_id" });
 
 module.exports = State;
