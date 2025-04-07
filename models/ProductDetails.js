@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Your Sequelize instance
-
+const sequelize = require('../config/db');
 const ProductDetails = sequelize.define('ProductDetails', {
   product_id: {
     type: DataTypes.INTEGER,
@@ -22,10 +21,17 @@ const ProductDetails = sequelize.define('ProductDetails', {
   stock_quantity: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  category_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'categories',
+      key: 'id'
+    }
   }
 }, {
   tableName: 'product_details',
-  timestamps: false  // Disable createdAt/updatedAt if not needed
+  timestamps: false
 });
 
 module.exports = ProductDetails;

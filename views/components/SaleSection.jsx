@@ -3,10 +3,10 @@ import React from 'react';
 
 const SaleSection = () => {
   const products = [
-    { name: 'Lace Top', price: '$29.00 AUD', image: 'lace-top.jpg' },
-    { name: 'Boho Handbag', price: '$35.00 AUD', image: 'boho-handbag.jpg' },
-    { name: 'Swimsuit', price: '$40.00 AUD', image: 'swimsuit.jpg' },
-    { name: 'Beach Dress', price: '$65.00 AUD', image: 'beach-dress.jpg' },
+    { name: 'Lace Top', price: '$29.00 AUD', image: 'https://i.pinimg.com/474x/22/30/80/223080340a6838f2b25022378c83cafc.jpg' },
+    { name: 'Boho Handbag', price: '$35.00 AUD', image: 'https://i.pinimg.com/474x/6d/2a/dc/6d2adca46d155be63349209f04d808a0.jpg' },
+    { name: 'Swimsuit', price: '$40.00 AUD', image: 'https://i.pinimg.com/474x/4a/43/b2/4a43b2574dbbb633fae70026ff501dd2.jpg' },
+    { name: 'Beach Dress', price: '$65.00 AUD', image: 'https://i.pinimg.com/474x/99/40/63/9940632880e728a4fc1317bea8ba71eb.jpg' },
   ];
 
   return (
