@@ -9,11 +9,11 @@ import RecentProducts from '../components/RecentProducts';
 const WomenPage = () => {
   return (
     <div>
-      <Header />
+
       <HeroSection />
       <LookbookSection />
       <RecentProducts />
-      <Footer />
+    
     </div>
   );
 };
