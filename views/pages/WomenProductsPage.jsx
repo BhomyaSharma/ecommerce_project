@@ -80,6 +80,7 @@ const WomenProductsPage = () => {
 
   return (
     <div style={{ width: '100%', minHeight: '100vh', fontFamily: "'Lora', serif" }}>
+
       <div style={{ width: '100%', padding: '20px' }}>
         {/* Hero Banner */}
         <section
@@ -387,6 +388,9 @@ const WomenProductsPage = () => {
           </div>
         )}
       </div>
+
+     
+
     </div>
   );
 };

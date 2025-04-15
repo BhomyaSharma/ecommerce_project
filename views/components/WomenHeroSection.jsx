@@ -32,7 +32,9 @@ const WomenHeroSection = () => {
           Cozy Autumn 2025
         </h1>
         <Link
+
           to="/women-product" // Fixed to match the route in App.jsx
+
           style={{
             padding: '10px 20px',
             fontSize: '16px',
