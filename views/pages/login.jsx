@@ -1,25 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // 🔑 Get login function from context
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // Prevent form submission and page reload
+  
     try {
       const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+  
       const data = await response.json();
-      if (response.ok) {
-        console.log("Login successful:", data);
-        navigate("/"); // Redirect to home on success
+  
+      console.log("Parsed Data:", data); // Debug: Check what backend sends
+  
+      if (response.ok && data.token) {
+        // Construct userData with a fallback name
+        const userData = {
+          name: email.split("@")[0], // Use part of email as username
+          token: data.token,
+        };
+  
+        // Save user to AuthContext + localStorage
+        login(userData);
+  
+        // Wait for context to update and then navigate
+        navigate("/"); // Redirect to homepage
       } else {
-        alert("Login failed: " + data.message);
+        alert("Login failed: " + (data.message || data.error || "Missing user data or token."));
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -31,75 +47,62 @@ const Login = () => {
     <div
       style={{
         display: "flex",
-        minHeight: "calc(120vh - 150px)", // Adjust for header/footer
-        backgroundImage: `url('https://i.pinimg.com/736x/2d/4e/65/2d4e659ccdb7ecf1e884be2134557a8f.jpg')`, // Replace with your image URL
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundImage: `url('https://i.pinimg.com/736x/2d/4e/65/2d4e659ccdb7ecf1e884be2134557a8f.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         padding: "20px",
+        boxSizing: "border-box",
       }}
     >
       {/* Left Illustration Section */}
       <div
         style={{
           flex: "1",
-          // background: "#f0f0f0",
+          maxWidth: "500px",
+          minWidth: "300px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
-          padding: "20px",
+          padding: "40px 20px",
         }}
       >
         <img
-          src="https://i.pinimg.com/736x/e8/5f/86/e85f86122b96cb56061cdae24a1ddeaa.jpg" // Replace with your illustration URL
-          // alt="Shopping Illustration"
-          style={{ maxWidth: "100%", height: "auto" }}
-        />
-        <div
+          src="https://i.pinimg.com/736x/e8/5f/86/e85f86122b96cb56061cdae24a1ddeaa.jpg"
+          alt="Shopping Illustration"
           style={{
-            display: "flex",
-            alignItems: "center",
-            marginTop: "20px",
+            width: "400px",
+            height: "400px",
+            borderRadius: "30px",
+            objectFit: "cover",
+            border: "8px solid rgba(255, 255, 255, 0.7)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+            transition: "transform 0.3s ease",
           }}
-        >
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="#7a5d4d"
-            viewBox="0 0 24 24"
-            style={{ marginRight: "10px" }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              // d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          <span
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "18px",
-              color: "#7a5d4d",
-            }}
-          >
-            
-          </span>
-        </div>
+          onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+          onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+        />
       </div>
 
       {/* Right Form Section */}
       <div
         style={{
           flex: "1",
+          maxWidth: "500px",
+          minWidth: "300px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           padding: "40px",
-          // background: "rgba(255, 228, 196, 0.9)", // Semi-transparent overlay to ensure readability
+          backgroundColor: "rgba(255, 255, 255, 0.85)",
+          borderRadius: "20px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
         }}
       >
         <h1

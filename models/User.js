@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Your Sequelize instance
+const sequelize = require('../config/db'); // Ensure this is your correct Sequelize instance
 
 const User = sequelize.define('User', {
   id: {
@@ -14,16 +14,22 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      isEmail: {
+        msg: 'Please provide a valid email address'
+      }
+    }
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false
   }
-  // Optionally, you can add a role or created_at fields here.
 }, {
-  tableName: 'users',   // Must match your database table name
-  timestamps: false     // Disable auto-created timestamps if you're not using them
+  tableName: 'users',
+  timestamps: false,  // Ensure this is set to false
+  underscored: true
 });
+
 
 module.exports = User;

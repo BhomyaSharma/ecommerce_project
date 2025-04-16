@@ -26,6 +26,14 @@ exports.getProductsByCategory = async (req, res) => {
     console.log('Found category with ID:', category.id);
 
     const products = await ProductDetails.findAll({
+      attributes: [
+        'product_id',
+        'product_name',
+        'description',
+        'price',
+        'stock_quantity',
+        'image_url' // ✅ make sure this is included
+      ],
       where: { category_id: category.id },
       include: [{ model: ProductVariant }],
     });

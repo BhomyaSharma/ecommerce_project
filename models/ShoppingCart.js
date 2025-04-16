@@ -9,9 +9,10 @@ const ShoppingCart = sequelize.define('ShoppingCart', {
   },
   user_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
-    // Optionally, you can define a foreign key relationship here if you have a User model:
-    // references: { model: 'users', key: 'id' }
+    allowNull: false,
+    // Optionally, add a foreign key reference to the User model if needed
+    // references: { model: 'users', key: 'id' },
+    // onDelete: 'CASCADE'
   },
   created_at: {
     type: DataTypes.DATE,
@@ -19,7 +20,16 @@ const ShoppingCart = sequelize.define('ShoppingCart', {
   }
 }, {
   tableName: 'shopping_cart',
-  timestamps: false // Disable auto-created timestamps if you are using a custom created_at field
+  timestamps: false
 });
+
+// Association with CartItem
+ShoppingCart.associate = (models) => {
+  ShoppingCart.hasMany(models.CartItem, {
+    foreignKey: 'cart_id',
+    as: 'items',
+    onDelete: 'CASCADE'
+  });
+};
 
 module.exports = ShoppingCart;

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState(""); // ✅ Email state added
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Signup = () => {
       const response = await fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: username, email, password }), // ✅ Include name, email, password
+        body: JSON.stringify({ name: username, email, password }),
       });
       const data = await response.json();
       if (response.ok) {
@@ -37,27 +37,46 @@ const Signup = () => {
     <div
       style={{
         display: "flex",
-        minHeight: "calc(100vh - 150px)",
-        background: "#FFE4C4",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        backgroundImage: `url('https://i.pinimg.com/736x/2d/4e/65/2d4e659ccdb7ecf1e884be2134557a8f.jpg')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         padding: "20px",
+        boxSizing: "border-box",
       }}
     >
-      {/* Left Section */}
+      {/* Left Illustration Section */}
       <div
         style={{
           flex: "1",
-          background: "#FFE4C4",
+          maxWidth: "500px",
+          minWidth: "300px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
+          justifyContent: "flex-start",
+          alignItems: "flex-start", // Changed from center to flex-start
+          padding: "40px 20px",
         }}
       >
         <img
           src="https://i.pinimg.com/474x/79/eb/19/79eb19f0607b71186736ef6a678a5068.jpg"
           alt="Shopping Illustration"
-          style={{ maxWidth: "100%", height: "auto" }}
+          style={{
+            width: "400px",
+            height: "400px",
+            borderRadius: "30px",
+            objectFit: "cover",
+            border: "8px solid rgba(255, 255, 255, 0.7)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+            transition: "transform 0.3s ease",
+            marginLeft: "20px", // Added margin to shift left
+          }}
+          onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+          onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
         />
       </div>
 
@@ -65,11 +84,16 @@ const Signup = () => {
       <div
         style={{
           flex: "1",
+          maxWidth: "500px",
+          minWidth: "300px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           padding: "40px",
+          backgroundColor: "rgba(255, 255, 255, 0.85)",
+          borderRadius: "20px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
         }}
       >
         <h1
@@ -189,7 +213,7 @@ const Signup = () => {
   );
 };
 
-// ✨ Input and Button Styles
+// Input and Button Styles
 const inputStyle = {
   width: "100%",
   padding: "12px",
