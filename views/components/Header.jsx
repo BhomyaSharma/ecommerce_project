@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React, { useState, useEffect, useRef } from 'react';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { fetchCategories } from '../api/categoryApi';
@@ -273,6 +274,9 @@
 // };
 
 // export default Header;
+=======
+
+>>>>>>> 9bfc494552a6bdae318ff7f0e15be7959552bd28
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategories } from '../api/categoryApi';
