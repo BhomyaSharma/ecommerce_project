@@ -67,13 +67,16 @@ import Footer from './components/Footer';
 import CategoryPage from './pages/CategoryPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import CartPage from './pages/CartPage';
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
-import { AuthProvider } from './context/AuthContext'; // ✅ Import AuthProvider
+import { AuthProvider } from './context/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <AuthProvider> {/* ✅ Wrap with AuthProvider */}
+    <AuthProvider>
       <CartProvider>
         <ToastProvider>
           <div
@@ -102,9 +105,29 @@ const App = () => {
                 <Route path="/shop/:categoryName" element={<CategoryPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/cart" element={<CartPage />} />
               </Routes>
             </main>
             <Footer />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              toastStyle={{
+                backgroundColor: '#ede4c8',
+                color: '#4a4a4a',
+                fontFamily: "'Lora', serif",
+                border: '1px solid #d4af37',
+                borderRadius: '8px',
+              }}
+            />
           </div>
         </ToastProvider>
       </CartProvider>

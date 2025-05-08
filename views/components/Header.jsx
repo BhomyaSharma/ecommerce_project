@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // import React, { useState, useEffect, useRef } from 'react';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import { fetchCategories } from '../api/categoryApi';
@@ -32,7 +32,7 @@
 //     loadCategories();
 //   }, []);
 
-//   // Get user from localStorage
+//   // Get user from localStorage (This will display the username after login)
 //   useEffect(() => {
 //     const storedUser = localStorage.getItem('userName');
 //     if (storedUser) {
@@ -274,13 +274,12 @@
 // };
 
 // export default Header;
-=======
-
->>>>>>> 9bfc494552a6bdae318ff7f0e15be7959552bd28
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategories } from '../api/categoryApi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const Header = () => {
   const [isAccessoriesOpen, setIsAccessoriesOpen] = useState(false);
@@ -290,6 +289,7 @@ const Header = () => {
   const [menCategories, setMenCategories] = useState([]);
   const [userName, setUserName] = useState(null);
 
+  const { getTotalItems } = useCart();
   const accessoriesRef = useRef(null);
   const menRef = useRef(null);
   const location = useLocation();
@@ -310,7 +310,7 @@ const Header = () => {
     loadCategories();
   }, []);
 
-  // Get user from localStorage (This will display the username after login)
+  // Get user from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem('userName');
     if (storedUser) {
@@ -328,9 +328,7 @@ const Header = () => {
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        accessoriesRef.current && !accessoriesRef.current.contains(event.target)
-      ) {
+      if (accessoriesRef.current && !accessoriesRef.current.contains(event.target)) {
         setIsAccessoriesOpen(false);
       }
       if (menRef.current && !menRef.current.contains(event.target)) {
@@ -444,6 +442,27 @@ const Header = () => {
           height: 2px;
           background-color: #4a4a4a;
         }
+        .cart-container {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .cart-badge {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: #d4af37;
+          color: #fff;
+          font-size: 12px;
+          font-family: 'Lora', serif;
+          font-weight: bold;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         @media (max-width: 768px) {
           .desktop-nav {
             display: none;
@@ -462,6 +481,9 @@ const Header = () => {
             z-index: 999;
             padding: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+          }
+          .cart-container {
+            margin: 10px 0;
           }
         }
       `}</style>
@@ -517,6 +539,14 @@ const Header = () => {
           <Link to="/blog" className={`nav-link ${isActive('/blog') ? 'active' : ''}`} onClick={handleNavClick}>BLOG</Link>
           <Link to="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`} onClick={handleNavClick}>ABOUT</Link>
           <Link to="/contact" className={`nav-link ${isActive('/contact') ? 'active' : ''}`} onClick={handleNavClick}>CONTACT</Link>
+
+          {/* Cart Icon */}
+          <Link to="/cart" className="cart-container" onClick={handleNavClick}>
+            <ShoppingCart style={{ width: '24px', height: '24px', color: '#4a4a4a' }} />
+            {getTotalItems() > 0 && (
+              <span className="cart-badge">{getTotalItems()}</span>
+            )}
+          </Link>
         </nav>
 
         {/* User Auth Buttons */}
@@ -545,6 +575,12 @@ const Header = () => {
           <Link to="/blog" className="nav-link" onClick={handleNavClick}>BLOG</Link>
           <Link to="/about" className="nav-link" onClick={handleNavClick}>ABOUT</Link>
           <Link to="/contact" className="nav-link" onClick={handleNavClick}>CONTACT</Link>
+          <Link to="/cart" className="nav-link cart-container" onClick={handleNavClick}>
+            CART
+            {getTotalItems() > 0 && (
+              <span className="cart-badge" style={{ marginLeft: '10px' }}>{getTotalItems()}</span>
+            )}
+          </Link>
         </div>
       )}
     </header>
