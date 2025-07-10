@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const countryStateController = require('../controllers/CountryStateController');
+const countryStateController = require('../controllers/countryStateController');
 
 router.get('/', countryStateController.getAll);
 router.get('/:id', countryStateController.getById);
