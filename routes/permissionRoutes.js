@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PermissionController = require('../controllers/PermissionController');
+const PermissionController = require('../controllers/permissionController');
 
 router.get('/', PermissionController.getAll);
 router.get('/:id', PermissionController.getById);
