@@ -7,7 +7,7 @@ const sequelize = require("./config/db"); // Import Sequelize instance
 
 // Import Routes
 const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/Userroutes");
+const userRoutes = require("./routes/userRoutes");
 const regionRoutes = require("./routes/regionRoutes");
 const countryRoutes = require("./routes/countryRoutes");
 const countryRegionRoutes = require("./routes/countryRegionRoutes");
